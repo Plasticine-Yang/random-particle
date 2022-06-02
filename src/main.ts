@@ -5,6 +5,7 @@ const oParticleCanvas =
   document.querySelector<HTMLCanvasElement>('#particles')!;
 
 useParticles(oParticleCanvas, {
-  particleCount: 666,
-  prticleColors: ['#90AEFF', '#CEFC86', '#60EFB8'],
+  particleCount: 100,
+  particleColors: ['#EFFFFD', '#B8FFF9', '#85F4FF', '#42C2FF'],
+  particleMaxSize: 30,
 });
