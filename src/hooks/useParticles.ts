@@ -41,10 +41,10 @@ class Particle {
    * @description 粒子移动 只在垂直方向上移动
    * @param boundaryHeight 垂直方向的边界 用于超出边界时移动到边界另一边
    */
-  move() {
-    this.y -= 0.15;
-    if (this.y <= -10) {
-      this.y = HEIGHT + 10;
+  move(particleMoveRate: number) {
+    this.y -= particleMoveRate;
+    if (this.y <= -this.radius) {
+      this.y = HEIGHT + this.radius;
     }
 
     this.draw();
@@ -92,15 +92,15 @@ const generateParticles = (
 /**
  * @description 开启粒子动画
  */
-const showParticleAnimation = () => {
+const showParticleAnimation = (particleMoveRate: number) => {
   // 清屏 用于刷新下一帧
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
 
   for (const particle of particles) {
-    particle.move();
+    particle.move(particleMoveRate);
   }
 
-  requestAnimationFrame(showParticleAnimation);
+  requestAnimationFrame(showParticleAnimation.bind(null, particleMoveRate));
 };
 
 /**
@@ -119,6 +119,10 @@ interface ParticleOptions {
    * @description 粒子最大尺寸
    */
   particleMaxSize?: number;
+  /**
+   * @description 粒子移动速度
+   */
+  particleMoveRate?: number;
 }
 
 /**
@@ -133,6 +137,7 @@ export default (
   const particleCount = options?.particleCount ?? 100;
   const paricleColors = options?.particleColors ?? ['#fff'];
   const particleMaxSize = options?.particleMaxSize ?? 3;
+  const particleMoveRate = options?.particleMoveRate ?? 0.15;
 
   // 初始化 canvas 信息
   setupCanvasEl(canvasEl);
@@ -141,5 +146,5 @@ export default (
   generateParticles(particleCount, paricleColors, particleMaxSize);
 
   // 开启粒子动画
-  showParticleAnimation();
+  showParticleAnimation(particleMoveRate);
 };

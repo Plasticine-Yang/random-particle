@@ -8,4 +8,5 @@ useParticles(oParticleCanvas, {
   particleCount: 100,
   particleColors: ['#EFFFFD', '#B8FFF9', '#85F4FF', '#42C2FF'],
   particleMaxSize: 30,
+  particleMoveRate: 6,
 });
