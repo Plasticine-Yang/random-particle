@@ -1,8 +1,7 @@
-import './style.css'
+import useParticles from './hooks/useParticles';
+import './style.css';
 
-const app = document.querySelector<HTMLDivElement>('#app')!
+const oParticleCanvas =
+  document.querySelector<HTMLCanvasElement>('#particles')!;
 
-app.innerHTML = `
-  <h1>Hello Vite!</h1>
-  <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation</a>
-`
+useParticles(oParticleCanvas, { particleCount: 666 });
