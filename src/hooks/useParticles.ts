@@ -67,7 +67,7 @@ const setupCanvasEl = (canvasEl: HTMLCanvasElement) => {
  * @param ctx canvas 2d 上下文对象
  * @param particleCount 要生成的粒子数量
  */
-const generateParticles = (particleCount: number) => {
+const generateParticles = (particleCount: number, paricleColors: string[]) => {
   for (let i = 0; i < particleCount; i++) {
     // 粒子 x, y 坐标
     const x = Math.random() * WIDTH;
@@ -75,10 +75,8 @@ const generateParticles = (particleCount: number) => {
 
     // 粒子半径的大小在 1 ~ 3 个单位之间随机生成
     const radius = Math.random() * 2 + 1;
-
-    // 随机透明度
-    const alpha = Math.floor(Math.random() * 10) + 1 / 10 / 2;
-    const color = `rgba(255, 255, 255, ${alpha})`;
+    const color =
+      paricleColors[Math.floor(Math.random() * paricleColors.length)];
 
     const particle = new Particle(i, x, y, radius, color);
 
@@ -109,6 +107,10 @@ interface ParticleOptions {
    * @description 粒子数量
    */
   particleCount?: number;
+  /**
+   * @description 粒子颜色
+   */
+  prticleColors?: string[];
 }
 
 /**
@@ -121,12 +123,13 @@ export default (
   options?: ParticleOptions
 ): void => {
   const particleCount = options?.particleCount ?? 100;
+  const paricleColors = options?.prticleColors ?? ['#fff'];
 
   // 初始化 canvas 信息
   setupCanvasEl(canvasEl);
 
   // 生成粒子
-  generateParticles(particleCount);
+  generateParticles(particleCount, paricleColors);
 
   // 开启粒子动画
   showParticleAnimation();
